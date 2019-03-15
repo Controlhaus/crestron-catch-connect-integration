@@ -1,0 +1,57 @@
+namespace Catch_Connect_Crestron_Library;
+{
+     class ChangeEventArgs 
+    {
+        // class delegates
+
+        // class events
+
+        // class functions
+        STRING_FUNCTION ToString ();
+        SIGNED_LONG_INTEGER_FUNCTION GetHashCode ();
+
+        // class variables
+        INTEGER __class_id__;
+
+        // class properties
+        SIMPLSHARPSTRING key[];
+        INTEGER digitalValue;
+        INTEGER analogValue;
+        SIMPLSHARPSTRING stringValue[];
+    };
+
+    static class CatchConnect 
+    {
+        // class delegates
+        delegate FUNCTION DigitalPulseHandler ( SIMPLSHARPSTRING key );
+        delegate FUNCTION AnalogHandler ( SIMPLSHARPSTRING key , INTEGER value );
+        delegate FUNCTION SerialHandler ( SIMPLSHARPSTRING key , SIMPLSHARPSTRING value );
+        delegate FUNCTION ServiceHandler ( INTEGER online , INTEGER statusValue , SIMPLSHARPSTRING statusString );
+
+        // class events
+
+        // class functions
+        static FUNCTION InitializeDigital ( SIMPLSHARPSTRING key );
+        static FUNCTION SetDigitalValue ( SIMPLSHARPSTRING key , INTEGER value );
+        static FUNCTION SendDigitalPulse ( SIMPLSHARPSTRING key );
+        static FUNCTION InitializeAnalog ( SIMPLSHARPSTRING key );
+        static FUNCTION SetAnalogValue ( SIMPLSHARPSTRING key , INTEGER value );
+        static FUNCTION InitializeSerial ( SIMPLSHARPSTRING key );
+        static FUNCTION SetSerialValue ( SIMPLSHARPSTRING key , SIMPLSHARPSTRING value );
+        static FUNCTION InitializeService ( INTEGER port );
+        STRING_FUNCTION ToString ();
+        SIGNED_LONG_INTEGER_FUNCTION GetHashCode ();
+
+        // class variables
+        static ChangeEventArgs changeEventArgs;
+        static INTEGER serviceStatusValue;
+        static LONG_INTEGER debug;
+
+        // class properties
+        DelegateProperty DigitalPulseHandler OnDigitalPulseEvent;
+        DelegateProperty AnalogHandler OnAnalogEvent;
+        DelegateProperty SerialHandler OnSerialEvent;
+        DelegateProperty ServiceHandler OnServiceEvent;
+    };
+}
+

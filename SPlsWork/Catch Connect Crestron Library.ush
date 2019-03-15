@@ -1,0 +1,4 @@
+[BEGIN]
+ObjTp=Status
+HeaderCompatible=False
+[END]

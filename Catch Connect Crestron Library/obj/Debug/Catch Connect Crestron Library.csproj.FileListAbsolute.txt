@@ -1,0 +1,16 @@
+C:\Projects\Catch Connect Crestron Library\Catch Connect Crestron Library\bin\Debug\Catch Connect Crestron Library.dll
+C:\Projects\Catch Connect Crestron Library\Catch Connect Crestron Library\bin\Debug\Catch Connect Crestron Library.pdb
+C:\Projects\Catch Connect Crestron Library\Catch Connect Crestron Library\bin\Debug\SimplSharpCustomAttributesInterface.dll
+C:\Projects\Catch Connect Crestron Library\Catch Connect Crestron Library\bin\Debug\SimplSharpHelperInterface.dll
+C:\Projects\Catch Connect Crestron Library\Catch Connect Crestron Library\obj\Debug\ResolveAssemblyReference.cache
+C:\Projects\Catch Connect Crestron Library\Catch Connect Crestron Library\obj\Debug\Catch Connect Crestron Library.dll
+C:\Projects\Catch Connect Crestron Library\Catch Connect Crestron Library\obj\Debug\Catch Connect Crestron Library.pdb
+C:\Projects\Catch Connect Crestron Library\Catch Connect Crestron Library\bin\Debug\Newtonsoft.Json.Compact.dll
+C:\Projects\Catch Connect Crestron Example\Catch Connect Crestron Library\obj\Debug\ResolveAssemblyReference.cache
+C:\Projects\Catch Connect Crestron Example\Catch Connect Crestron Library\obj\Debug\Catch Connect Crestron Library.pdb
+C:\Projects\Catch Connect Crestron Example\Catch Connect Crestron Library\bin\Debug\Catch Connect Crestron Library.dll
+C:\Projects\Catch Connect Crestron Example\Catch Connect Crestron Library\bin\Debug\Catch Connect Crestron Library.pdb
+C:\Projects\Catch Connect Crestron Example\Catch Connect Crestron Library\bin\Debug\Newtonsoft.Json.Compact.dll
+C:\Projects\Catch Connect Crestron Example\Catch Connect Crestron Library\bin\Debug\SimplSharpCustomAttributesInterface.dll
+C:\Projects\Catch Connect Crestron Example\Catch Connect Crestron Library\bin\Debug\SimplSharpHelperInterface.dll
+C:\Projects\Catch Connect Crestron Example\Catch Connect Crestron Library\obj\Debug\Catch Connect Crestron Library.dll

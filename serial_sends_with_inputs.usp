@@ -1,0 +1,76 @@
+/*******************************************************************************************
+  SIMPL+ Module Information
+*******************************************************************************************/
+/*
+Dealer Name:	Controlhaus Systems Design
+System Name:
+System Number:
+Programmer:		Patrick Murray
+Comments:		patrick@controlhaus.de
+*/
+
+/*******************************************************************************************
+  Compiler Directives
+*******************************************************************************************/
+// #SYMBOL_NAME ""
+// #HINT ""
+// #DEFINE_CONSTANT
+// #CATEGORY "" 
+// #DEFAULT_VOLATILE
+#DEFAULT_NONVOLATILE
+#ENABLE_STACK_CHECKING
+
+#HELP_BEGIN
+Dealer Name:	Controlhaus Systems Design
+Programmer:		Patrick Murray
+Comments:		patrick@controlhaus.de
+
+This module is the property of Controlhaus Systems Design.  
+Please do not use this module without the express consent of the author.
+
+Transmits string on TEXT_IN$ to TEXT_OUT$ when SEND is pressed.
+
+#HELP_END
+
+/*******************************************************************************************
+  Include Libraries
+*******************************************************************************************/
+// #CRESTRON_LIBRARY ""
+// #USER_LIBRARY ""
+
+/*******************************************************************************************
+  DIGITAL, ANALOG and SERIAL INPUTS and OUTPUTS
+*******************************************************************************************/
+DIGITAL_INPUT 
+send[65];
+
+// ANALOG_INPUT 
+
+STRING_INPUT 
+text_in$[100][65];
+
+// BUFFER_INPUT 
+
+// DIGITAL_OUTPUT  
+
+// ANALOG_OUTPUT 
+
+STRING_OUTPUT 
+text_out$;
+
+// INTEGER
+// STRING
+
+/*
+Function MyFunction1()
+*/
+
+PUSH send 
+{
+	MAKESTRING(text_out$,"%s",text_in$[GetLastModifiedArrayIndex()]);	
+}
+
+/*
+MAIN()
+*/
+
