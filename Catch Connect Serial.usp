@@ -149,7 +149,11 @@ CALLBACK FUNCTION CallbackEventHandler(STRING key, STRING value)
 Function Main()
 {
 	WaitForInitializationComplete();
-	CatchConnect.InitializeSerial(friendlyName);
-	serialEvents.Initialize(friendlyName);
-	RegisterDelegate(serialEvents,OnSerialEvent,CallbackEventHandler);
+	Wait(200){
+		CatchConnect.InitializeSerial(friendlyName);
+		serialEvents.Initialize(friendlyName);
+		RegisterDelegate(serialEvents,OnSerialEvent,CallbackEventHandler);
+		CatchConnect.SetSerialValue(friendlyName, in);
+	}
 }
+

@@ -52875,6 +52875,41 @@
             Gets the line position indicating where the error occurred.
             </summary>
         </member>
+        <member name="T:Crestron.SimplSharp.Comparers.UInt32EqualityComparer">
+            <summary>
+            Class to determine if two Uints are of the same value.
+            </summary>
+        </member>
+        <member name="M:Crestron.SimplSharp.Comparers.UInt32EqualityComparer.Equals(System.UInt32,System.UInt32)">
+            <summary>
+            Method to determine if two <see cref="T:System.UInt32"/> values are equal.
+            </summary>
+            <param name="x">First <see cref="T:System.UInt32"/> value to compare.</param>
+            <param name="y">Second <see cref="T:System.UInt32"/> value to compare.</param>
+            <returns>'true' the values are the same; 'false' otherwise.</returns>
+        </member>
+        <member name="M:Crestron.SimplSharp.Comparers.UInt32EqualityComparer.GetHashCode(System.UInt32)">
+            <summary>
+            Return the value from <see cref="M:System.UInt32.GetHashCode"/>.
+            </summary>
+            <param name="obj">Object to get the hash code of.</param>
+            <returns>A hash code for the specified object.</returns>
+        </member>
+        <member name="T:Crestron.SimplSharp.Comparers.Int32EqualityComparer">
+            <summary>
+            Class to determine if two ints are of the same value.
+            </summary>
+        </member>
+        <member name="M:Crestron.SimplSharp.Comparers.Int32EqualityComparer.Equals(System.Int32,System.Int32)">
+            <summary>
+            Method to determine if two <see cref="T:System.Int32"/> values are equal.
+            </summary>
+        </member>
+        <member name="M:Crestron.SimplSharp.Comparers.Int32EqualityComparer.GetHashCode(System.Int32)">
+            <summary>
+            Return the value from <see cref="M:System.Int32.GetHashCode"/>.
+            </summary>
+        </member>
         <member name="M:Crestron.SimplSharp.Ssh.Sftp.Requests.SftpLinkRequest.#ctor(System.UInt32,System.UInt32,System.String,System.String,System.Boolean,System.Action{Crestron.SimplSharp.Ssh.Sftp.Responses.SftpStatusResponse})">
             <summary>
             Initializes a new instance of the <see cref="T:Crestron.SimplSharp.Ssh.Sftp.Requests.SftpLinkRequest"/> class.

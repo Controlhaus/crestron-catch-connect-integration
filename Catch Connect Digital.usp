@@ -156,9 +156,12 @@ CALLBACK FUNCTION CallbackPulseEventHandler(STRING key)
 Function Main()
 {
 	WaitForInitializationComplete();
-	CatchConnect.InitializeDigital(friendlyName);
-	digitalEvents.Initialize(friendlyName);
-	digitalPulseEvents.Initialize(friendlyName);
-	RegisterDelegate(digitalEvents,OnDigitalEvent,CallbackEventHandler);
-	RegisterDelegate(digitalPulseEvents,OnDigitalPulseEvent,CallbackPulseEventHandler);
+	Wait(200){
+		CatchConnect.InitializeDigital(friendlyName);
+		digitalEvents.Initialize(friendlyName);
+		digitalPulseEvents.Initialize(friendlyName);
+		RegisterDelegate(digitalEvents,OnDigitalEvent,CallbackEventHandler);
+		RegisterDelegate(digitalPulseEvents,OnDigitalPulseEvent,CallbackPulseEventHandler);
+		CatchConnect.SetDigitalValue(friendlyName, in);
+	}
 }

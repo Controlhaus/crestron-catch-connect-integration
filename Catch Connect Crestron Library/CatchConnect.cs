@@ -173,7 +173,7 @@ namespace Catch_Connect_Crestron_Library
         public static ushort serviceStatusValue = 0;
         private static TCPServer tcpServer;
         public static uint debug = 0;
-
+        private static List<string> queue = new List<string>();
         
         /* Digitals */
         public static void InitializeDigital(SimplSharpString key)
@@ -185,8 +185,11 @@ namespace Catch_Connect_Crestron_Library
         {
             try
             {
-                string msg = "digital;" + key.ToString() + ";" + value.ToString();
-                SendDataAsync(msg);
+                if (key != null)
+                {
+                    string msg = "digital;" + key.ToString() + ";" + value.ToString();
+                    SendMessage(msg);
+                }
             }
             catch (Exception e)
             {
@@ -204,8 +207,11 @@ namespace Catch_Connect_Crestron_Library
         {
             try
             {
-                string msg = "analog;" + key.ToString() + ";" + value.ToString();
-                SendDataAsync(msg);
+                if (key != null)
+                {
+                    string msg = "analog;" + key.ToString() + ";" + value.ToString();
+                    SendMessage(msg);
+                }
             }
             catch (Exception e)
             {
@@ -223,8 +229,11 @@ namespace Catch_Connect_Crestron_Library
         {
             try
             {
-                string msg = "serial;" + key.ToString() + ";" + value.ToString();
-                SendDataAsync(msg);
+                if (key != null && value != null)
+                {
+                    string msg = "serial;" + key.ToString() + ";" + value.ToString();
+                    SendMessage(msg);
+                }
             }
             catch (Exception e)
             {
@@ -268,10 +277,10 @@ namespace Catch_Connect_Crestron_Library
                 data = data + "response," + digital.ToString() + " Value," + message + ",,FALSE,TRUE\r\n";
 
                 message = "digital;" + digital.ToString() + ";1";
-                data = data + "response," + digital.ToString() + " Is On," + message + ",,FALSE,TRUE\r\n";
+                data = data + "response," + digital.ToString() + " Is On," + message + ",,FALSE,FALSE\r\n";
 
                 message = "digital;" + digital.ToString() + ";0";
-                data = data + "response," + digital.ToString() + " Is Off," + message + ",,FALSE,TRUE\r\n";
+                data = data + "response," + digital.ToString() + " Is Off," + message + ",,FALSE,FALSE\r\n";
             }
             foreach (var analog in analogs)
             {
@@ -322,6 +331,42 @@ namespace Catch_Connect_Crestron_Library
             }
         }
 
+        private static void SendMessage(string msg)
+        {
+            if (tcpServer != null)
+            {
+                if (debug > 0)
+                {
+                    CrestronConsole.Print("\n Catch Connect SendMessage with msg: {0} and tcpServer.NumberOfClientsConnected: {1} ", msg, tcpServer.NumberOfClientsConnected);
+                }
+                if (tcpServer.NumberOfClientsConnected > 0)
+                {
+                    SendDataAsync(msg);
+                }
+                else
+                {
+                    queue.Add(msg);
+                }
+            }
+            else
+            {
+                queue.Add(msg);
+            }
+        }
+
+        private static void ProcessQueue()
+        {
+            if (debug > 0)
+            {
+                CrestronConsole.Print("\n Catch Connect ProcessQueue with count: {0} ", queue.Count.ToString());
+            }
+            if (queue.Count > 0)
+            {                
+                string msg = queue[0];
+                queue.RemoveAt(0);
+                SendDataAsync(msg);
+            }            
+        }
 
         private static void tcpServer_SocketStatusChange(TCPServer myTCPServer, uint clientIndex, SocketStatus serverSocketStatus)
         {
@@ -334,6 +379,7 @@ namespace Catch_Connect_Crestron_Library
             switch(serverSocketStatus){
                 case SocketStatus.SOCKET_STATUS_CONNECTED:
                     online = 1;
+                    ProcessQueue();
                     break;
                 case SocketStatus.SOCKET_STATUS_NO_CONNECT:
                     online = 0;
@@ -405,12 +451,13 @@ namespace Catch_Connect_Crestron_Library
                     ErrorLog.Error("\n Catch Connect OnTCPReceiveCallback Exception: " + e.Message);
                 }
             }
-            //Start listening for new messages
+            //Start listening for new messages and process message queue
             if (myTCPServer != null && clientIndex > 0)
             {
                 try
                 {
                     SocketErrorCodes resultCodes = myTCPServer.ReceiveDataAsync(clientIndex, OnTCPReceiveCallback);
+                    ProcessQueue();
                     if (debug > 0)
                     {
                         CrestronConsole.Print("\n Catch Connect OnTCPReceiveCallback ReceiveDataAsync resultCodes: " + resultCodes.ToString());
@@ -497,6 +544,7 @@ namespace Catch_Connect_Crestron_Library
 
         private static void OnTCPServerSendCallback(TCPServer myTCPServer, uint clientIndex, int numberOfBytesSent)
         {
+            ProcessQueue();
             if (debug > 0)
             {
                 CrestronConsole.Print("\n Catch Connect OnTCPServerSendCallback clientIndex: {0}, numberOfBytesSent: {1}", clientIndex, numberOfBytesSent);

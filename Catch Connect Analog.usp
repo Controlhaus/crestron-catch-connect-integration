@@ -149,7 +149,10 @@ CALLBACK FUNCTION CallbackEventHandler(STRING key, INTEGER value)
 Function Main()
 {
 	WaitForInitializationComplete();
-	CatchConnect.InitializeAnalog(friendlyName);
-	analogEvents.Initialize(friendlyName);
-	RegisterDelegate(analogEvents,OnAnalogEvent,CallbackEventHandler);
+	Wait(200){
+		CatchConnect.InitializeAnalog(friendlyName);
+		analogEvents.Initialize(friendlyName);
+		RegisterDelegate(analogEvents,OnAnalogEvent,CallbackEventHandler);
+		CatchConnect.SetAnalogValue(friendlyName, in);
+	}
 }

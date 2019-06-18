@@ -63,13 +63,7 @@ namespace UserModule_CATCH_CONNECT_SERIAL
             __context__.SourceCodeLine = 151;
             WaitForInitializationComplete ( ) ; 
             __context__.SourceCodeLine = 152;
-             CatchConnect.InitializeSerial(  FRIENDLYNAME  .ToSimplSharpString() )  ;  
- 
-            __context__.SourceCodeLine = 153;
-            SERIALEVENTS . Initialize ( FRIENDLYNAME  .ToSimplSharpString()) ; 
-            __context__.SourceCodeLine = 154;
-            // RegisterDelegate( SERIALEVENTS , ONSERIALEVENT , CALLBACKEVENTHANDLER ) 
-            SERIALEVENTS .OnSerialEvent  = CALLBACKEVENTHANDLER; ; 
+            CreateWait ( "__SPLS_TMPVAR__WAITLABEL_0__" , 200 , __SPLS_TMPVAR__WAITLABEL_0___Callback ) ;
             
             
         }
@@ -78,74 +72,105 @@ namespace UserModule_CATCH_CONNECT_SERIAL
         return __obj__;
         }
         
-    
-    public override void LogosSplusInitialize()
+    public void __SPLS_TMPVAR__WAITLABEL_0___CallbackFn( object stateInfo )
     {
-        SocketInfo __socketinfo__ = new SocketInfo( 1, this );
-        InitialParametersClass.ResolveHostName = __socketinfo__.ResolveHostName;
-        _SplusNVRAM = new SplusNVRAM( this );
+    
+        try
+        {
+            Wait __LocalWait__ = (Wait)stateInfo;
+            SplusExecutionContext __context__ = SplusThreadStartCode(__LocalWait__);
+            __LocalWait__.RemoveFromList();
+            
+            
+             CatchConnect.InitializeSerial(  FRIENDLYNAME  .ToSimplSharpString() )  ;  
+ 
+            __context__.SourceCodeLine = 154;
+            SERIALEVENTS . Initialize ( FRIENDLYNAME  .ToSimplSharpString()) ; 
+            __context__.SourceCodeLine = 155;
+            // RegisterDelegate( SERIALEVENTS , ONSERIALEVENT , CALLBACKEVENTHANDLER ) 
+            SERIALEVENTS .OnSerialEvent  = CALLBACKEVENTHANDLER; ; 
+            __context__.SourceCodeLine = 156;
+             CatchConnect.SetSerialValue(  FRIENDLYNAME  .ToSimplSharpString() ,  IN .ToSimplSharpString() )  ;  
+ 
+            
         
-        IN = new Crestron.Logos.SplusObjects.StringInput( IN__AnalogSerialInput__, 24, this );
-        m_StringInputList.Add( IN__AnalogSerialInput__, IN );
         
-        OUT = new Crestron.Logos.SplusObjects.StringOutput( OUT__AnalogSerialOutput__, this );
-        m_StringOutputList.Add( OUT__AnalogSerialOutput__, OUT );
-        
-        FRIENDLYNAME = new StringParameter( FRIENDLYNAME__Parameter__, this );
-        m_ParameterList.Add( FRIENDLYNAME__Parameter__, FRIENDLYNAME );
-        
-        
-        IN.OnSerialChange.Add( new InputChangeHandlerWrapper( IN_OnChange_0, false ) );
-        
-        _SplusNVRAM.PopulateCustomAttributeList( true );
-        
-        NVRAM = _SplusNVRAM;
+        }
+        catch(Exception e) { ObjectCatchHandler(e); }
+        finally { ObjectFinallyHandler(); }
         
     }
     
-    public override void LogosSimplSharpInitialize()
-    {
-        SERIALEVENTS  = new Catch_Connect_Crestron_Library.SerialEventHandler();
-        
-        
-    }
+
+public override void LogosSplusInitialize()
+{
+    SocketInfo __socketinfo__ = new SocketInfo( 1, this );
+    InitialParametersClass.ResolveHostName = __socketinfo__.ResolveHostName;
+    _SplusNVRAM = new SplusNVRAM( this );
     
-    public UserModuleClass_CATCH_CONNECT_SERIAL ( string InstanceName, string ReferenceID, Crestron.Logos.SplusObjects.CrestronStringEncoding nEncodingType ) : base( InstanceName, ReferenceID, nEncodingType ) {}
+    IN = new Crestron.Logos.SplusObjects.StringInput( IN__AnalogSerialInput__, 24, this );
+    m_StringInputList.Add( IN__AnalogSerialInput__, IN );
+    
+    OUT = new Crestron.Logos.SplusObjects.StringOutput( OUT__AnalogSerialOutput__, this );
+    m_StringOutputList.Add( OUT__AnalogSerialOutput__, OUT );
+    
+    FRIENDLYNAME = new StringParameter( FRIENDLYNAME__Parameter__, this );
+    m_ParameterList.Add( FRIENDLYNAME__Parameter__, FRIENDLYNAME );
+    
+    __SPLS_TMPVAR__WAITLABEL_0___Callback = new WaitFunction( __SPLS_TMPVAR__WAITLABEL_0___CallbackFn );
+    
+    IN.OnSerialChange.Add( new InputChangeHandlerWrapper( IN_OnChange_0, false ) );
+    
+    _SplusNVRAM.PopulateCustomAttributeList( true );
+    
+    NVRAM = _SplusNVRAM;
+    
+}
+
+public override void LogosSimplSharpInitialize()
+{
+    SERIALEVENTS  = new Catch_Connect_Crestron_Library.SerialEventHandler();
     
     
+}
+
+public UserModuleClass_CATCH_CONNECT_SERIAL ( string InstanceName, string ReferenceID, Crestron.Logos.SplusObjects.CrestronStringEncoding nEncodingType ) : base( InstanceName, ReferenceID, nEncodingType ) {}
+
+
+private WaitFunction __SPLS_TMPVAR__WAITLABEL_0___Callback;
+
+
+const uint IN__AnalogSerialInput__ = 0;
+const uint OUT__AnalogSerialOutput__ = 0;
+const uint FRIENDLYNAME__Parameter__ = 10;
+
+[SplusStructAttribute(-1, true, false)]
+public class SplusNVRAM : SplusStructureBase
+{
+
+    public SplusNVRAM( SplusObject __caller__ ) : base( __caller__ ) {}
     
     
-    const uint IN__AnalogSerialInput__ = 0;
-    const uint OUT__AnalogSerialOutput__ = 0;
-    const uint FRIENDLYNAME__Parameter__ = 10;
-    
-    [SplusStructAttribute(-1, true, false)]
-    public class SplusNVRAM : SplusStructureBase
-    {
-    
-        public SplusNVRAM( SplusObject __caller__ ) : base( __caller__ ) {}
-        
-        
-    }
-    
-    SplusNVRAM _SplusNVRAM = null;
-    
-    public class __CEvent__ : CEvent
-    {
-        public __CEvent__() {}
-        public void Close() { base.Close(); }
-        public int Reset() { return base.Reset() ? 1 : 0; }
-        public int Set() { return base.Set() ? 1 : 0; }
-        public int Wait( int timeOutInMs ) { return base.Wait( timeOutInMs ) ? 1 : 0; }
-    }
-    public class __CMutex__ : CMutex
-    {
-        public __CMutex__() {}
-        public void Close() { base.Close(); }
-        public void ReleaseMutex() { base.ReleaseMutex(); }
-        public int WaitForMutex() { return base.WaitForMutex() ? 1 : 0; }
-    }
-     public int IsNull( object obj ){ return (obj == null) ? 1 : 0; }
+}
+
+SplusNVRAM _SplusNVRAM = null;
+
+public class __CEvent__ : CEvent
+{
+    public __CEvent__() {}
+    public void Close() { base.Close(); }
+    public int Reset() { return base.Reset() ? 1 : 0; }
+    public int Set() { return base.Set() ? 1 : 0; }
+    public int Wait( int timeOutInMs ) { return base.Wait( timeOutInMs ) ? 1 : 0; }
+}
+public class __CMutex__ : CMutex
+{
+    public __CMutex__() {}
+    public void Close() { base.Close(); }
+    public void ReleaseMutex() { base.ReleaseMutex(); }
+    public int WaitForMutex() { return base.WaitForMutex() ? 1 : 0; }
+}
+ public int IsNull( object obj ){ return (obj == null) ? 1 : 0; }
 }
 
 
